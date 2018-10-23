@@ -7,11 +7,11 @@
         
         
         
-        <link rel="shortcut icon" href="/img/favicon.ico">
-        <title>Ron' Space</title>
-        <link href="/css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>RequestParamAndRequestBody - Ron' Space</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="/js/jquery-1.10.2.min.js" defer></script>
-        <script src="/js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -39,7 +39,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/.">Ron' Space</a>
+                    <a class="navbar-brand" href="../../..">Ron' Space</a>
                 </div>
 
                 <!-- Expanded navigation -->
@@ -51,15 +51,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/index.html">Home</a>
+    <a href="../../../index.html">Home</a>
 </li>
                                     
 <li >
-    <a href="/Git/chapters/chapter1/index.html">安装Git</a>
+    <a href="../../../Git/chapters/chapter1/index.html">安装Git</a>
 </li>
                                     
 <li >
-    <a href="/Git/chapters/chapter3/index.html">远程仓库</a>
+    <a href="../../../Git/chapters/chapter3/index.html">远程仓库</a>
 </li>
                                 </ul>
                             </li>
@@ -68,19 +68,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/HTTP/chapters/chapter1/index.html">HTTP报文</a>
-</li>
-                                    
-<li >
-    <a href="/HTTP/chapters/chapter2/index.html">状态码</a>
-</li>
-                                    
-<li >
-    <a href="/HTTP/chapters/chapter3/index.html">Get和Post</a>
-</li>
-                                    
-<li >
-    <a href="/HTTP/chapters/chapter4/index.html">HTTPS</a>
+    <a href="../../../HTTP/chapters/chapter1/index.html">状态码</a>
 </li>
                                 </ul>
                             </li>
@@ -89,7 +77,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/Swagger/chapters/RequestParam/index.html">RequestParam</a>
+    <a href="index.html">RequestParam And RequestBody</a>
 </li>
                                 </ul>
                             </li>
@@ -98,11 +86,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/about/license.md">License</a>
+    <a href="../../../about/license.md">License</a>
 </li>
                                     
 <li >
-    <a href="/about/release-notes.md">Release Notes</a>
+    <a href="../../../about/release-notes.md">Release Notes</a>
 </li>
                                 </ul>
                             </li>
@@ -120,15 +108,57 @@
         </div>
 
         <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#requestparam">@RequestParam</a></li>
+            <li><a href="#get">Get请求</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
 
-    <div class="row-fluid">
-      <div id="main-content" class="span12">
-        <h1 id="404-page-not-found" style="text-align: center">404</h1>
-        <p style="text-align: center"><strong>Page not found</strong></p>
-      </div>
-    </div>
+<h2 id="requestparam">@RequestParam</h2>
+<h3 id="get">Get请求</h3>
+<p>Get请求首部无Content-Type字段</p>
+<ul>
+<li>请求URL: https://petstore.swagger.io/v2/pet/findByStatus?status=available</li>
+</ul>
+<p>报文截图如下：</p>
+<p><img alt="get_findByStatus" src="../../pics/get_findByStatus.png" /></p>
+<p>其对应后台参数设置：</p>
+<p><img alt="get_findByStatus_swagger" src="../../pics/get_findByStatus_swagger.png" /></p>
+<p>其前台Ajax请求代码：</p>
+<pre><code>$.ajax({  
+        url: 'https://petstore.swagger.io/v2/pet/findByStatus', 
+        data:{status:&quot;available&quot;}, 
+        dataType:&quot;application/json&quot;, 
+        success:function(result){ 
 
+        }, 
+        error:function(result,error){ 
 
+        } 
+}) 
+</code></pre>
+
+<ul>
+<li>请求URL: https://petstore.swagger.io/v2/pet/1</li>
+</ul>
+<p>报文截图如下：</p>
+<p><img alt="get_byId" src="../../pics/get_byId.png" /></p>
+<p>其对应后台参数设置:</p>
+<p><img alt="get_byId_swagger" src="../../pics/get_byId_swagger.png" /></p>
+<p>其前台Ajax请求代码：</p>
+<pre><code> $.ajax({  
+        url: 'http://localhost:8080/v2/pet/1', 
+        dataType:&quot;application/json&quot;, 
+        success:function(result){ 
+
+        }, 
+        error:function(result,error){ 
+
+        } 
+    })  
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
@@ -136,11 +166,11 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "/",
+            var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="/js/base.js" defer></script>
-        <script src="/search/main.js" defer></script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
