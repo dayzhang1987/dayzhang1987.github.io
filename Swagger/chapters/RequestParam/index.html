@@ -225,8 +225,9 @@
 <h3 id="_1">关于跨域访问知识补充：</h3>
 <pre><code>Access-Control-Allow-Origin：表示允许访问服务器地址来源
 Access-Control-Allow-Methods：表示允许客户端访问方法
-Access-Control-Allow-Headers：表示允许访问的客户端带的请求头中的参数；例如想在请求中添加：codeToken，则其访问的后台必须设置包含codeToken：
-  res.addHeader(&quot;Access-Control-Allow-Headers&quot;, &quot;Origin, X-Requested-With, Content-Type, Accept,codeToken&quot;)
+Access-Control-Allow-Headers：表示允许访问的客户端带的请求头中的参数；
+    例如想在请求中添加：codeToken，则其访问的后台必须设置包含codeToken：
+    res.addHeader(&quot;Access-Control-Allow-Headers&quot;, &quot;Origin, X-Requested-With, Content-Type, Accept,codeToken&quot;)
 Access-Control-Allow-Credentials：表示允许浏览器携带用户身份信息即Cookie
 </code></pre></div>
         </div>
