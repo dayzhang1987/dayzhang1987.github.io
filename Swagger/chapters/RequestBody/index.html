@@ -7,11 +7,11 @@
         
         
         
-        <link rel="shortcut icon" href="/img/favicon.ico">
-        <title>Ron' Space</title>
-        <link href="/css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>RequestBody - Ron' Space</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="/js/jquery-1.10.2.min.js" defer></script>
-        <script src="/js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -39,7 +39,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/.">Ron' Space</a>
+                    <a class="navbar-brand" href="../../..">Ron' Space</a>
                 </div>
 
                 <!-- Expanded navigation -->
@@ -51,15 +51,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/index.html">Home</a>
+    <a href="../../../index.html">Home</a>
 </li>
                                     
 <li >
-    <a href="/Git/chapters/chapter1/index.html">安装Git</a>
+    <a href="../../../Git/chapters/chapter1/index.html">安装Git</a>
 </li>
                                     
 <li >
-    <a href="/Git/chapters/chapter3/index.html">远程仓库</a>
+    <a href="../../../Git/chapters/chapter3/index.html">远程仓库</a>
 </li>
                                 </ul>
                             </li>
@@ -68,19 +68,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/HTTP/chapters/chapter1/index.html">HTTP报文</a>
+    <a href="../../../HTTP/chapters/chapter1/index.html">HTTP报文</a>
 </li>
                                     
 <li >
-    <a href="/HTTP/chapters/chapter2/index.html">状态码</a>
+    <a href="../../../HTTP/chapters/chapter2/index.html">状态码</a>
 </li>
                                     
 <li >
-    <a href="/HTTP/chapters/chapter3/index.html">Get和Post</a>
+    <a href="../../../HTTP/chapters/chapter3/index.html">Get和Post</a>
 </li>
                                     
 <li >
-    <a href="/HTTP/chapters/chapter4/index.html">HTTPS</a>
+    <a href="../../../HTTP/chapters/chapter4/index.html">HTTPS</a>
 </li>
                                 </ul>
                             </li>
@@ -89,15 +89,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/Swagger/chapters/RequestParam/index.html">RequestParam</a>
+    <a href="../RequestParam/index.html">RequestParam</a>
 </li>
                                     
 <li >
-    <a href="/Swagger/chapters/RequestBody/index.html">RequestBody</a>
+    <a href="index.html">RequestBody</a>
 </li>
                                     
 <li >
-    <a href="/Swagger/chapters/RequestPart/index.html">RequestPart</a>
+    <a href="../RequestPart/index.html">RequestPart</a>
 </li>
                                 </ul>
                             </li>
@@ -106,7 +106,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/about/license.md">License</a>
+    <a href="../../../about/license.md">License</a>
 </li>
                                 </ul>
                             </li>
@@ -124,15 +124,46 @@
         </div>
 
         <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#requestbody">@RequestBody</a></li>
+            <li><a href="#post">Post请求</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
 
-    <div class="row-fluid">
-      <div id="main-content" class="span12">
-        <h1 id="404-page-not-found" style="text-align: center">404</h1>
-        <p style="text-align: center"><strong>Page not found</strong></p>
-      </div>
-    </div>
-
-
+<h2 id="requestbody">@RequestBody</h2>
+<h3 id="post">Post请求</h3>
+<h4 id="-url-httpspetstoreswaggeriov2storeorder">- 请求URL: https://petstore.swagger.io/v2/store/order</h4>
+<p>报文截图如下：</p>
+<p><img alt="post_byJson" src="../../pics/post_byJson.png" />
+<img alt="post_byJsonData" src="../../pics/post_byJsonData.png" /></p>
+<p>其对应后台参数设置：</p>
+<p><img alt="post_byJson_swagger" src="../../pics/post_byJson_swagger.png" /></p>
+<p>其前台Ajax请求代码：</p>
+<pre><code>   var param = {
+        &quot;id&quot;: 0,
+        &quot;petId&quot;: 0,
+        &quot;quantity&quot;: 0,
+        &quot;shipDate&quot;: &quot;2018-10-24T02:20:34.859Z&quot;,
+        &quot;status&quot;: &quot;placed&quot;,
+        &quot;complete&quot;: false
+    }
+    param = JSON.stringify(param)
+    $.ajax({  
+        url: 'https://petstore.swagger.io/v2/store/order', 
+        type: 'POST',
+        data:param, 
+        dataType:&quot;application/json&quot;, 
+        contentType:'application/json',
+        success:function(result){ 
+            console.log(result)
+        }, 
+        error:function(result,error){ 
+            console.log(result)
+        } 
+    }) 
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
@@ -140,11 +171,11 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "/",
+            var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="/js/base.js" defer></script>
-        <script src="/search/main.js" defer></script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">

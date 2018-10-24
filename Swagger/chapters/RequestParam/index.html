@@ -91,6 +91,14 @@
 <li >
     <a href="index.html">RequestParam</a>
 </li>
+                                    
+<li >
+    <a href="../RequestBody/index.html">RequestBody</a>
+</li>
+                                    
+<li >
+    <a href="../RequestPart/index.html">RequestPart</a>
+</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -99,10 +107,6 @@
                                     
 <li >
     <a href="../../../about/license.md">License</a>
-</li>
-                                    
-<li >
-    <a href="../../../about/release-notes.md">Release Notes</a>
 </li>
                                 </ul>
                             </li>
@@ -159,7 +163,7 @@
 <p><img alt="get_byId_swagger" src="../../pics/get_byId_swagger.png" /></p>
 <p>其前台Ajax请求代码：</p>
 <pre><code> $.ajax({  
-        url: 'http://localhost:8080/v2/pet/1', 
+        url: 'https://petstore.swagger.io/v2/pet/1', 
         dataType:&quot;application/json&quot;, 
         success:function(result){ 
 
@@ -179,7 +183,7 @@
 <p><img alt="post_byId_swagger" src="../../pics/post_byId_swagger.png" /></p>
 <p>其前台Ajax请求代码：</p>
 <pre><code>    $.ajax({  
-        url: 'http://localhost:8080/v2/pet/1', 
+        url: 'https://petstore.swagger.io/v2/pet/1', 
         type: 'POST',
         data:{name:&quot;11&quot;,status:&quot;11&quot;}, 
         dataType:&quot;application/json&quot;, 
@@ -206,7 +210,7 @@
     }
     formData.append('additionalMetadata','11')
     $.ajax({  
-        url: 'http://localhost:8080/v2/pet/1/uploadImage', 
+        url: 'https://petstore.swagger.io/v2/pet/1/uploadImage', 
         type:'POST',
         data:formData,
         dataType:&quot;application/json&quot;, 
