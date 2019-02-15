@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <title>Classpath Handling</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/assets/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/assets/css/owl.theme.css" rel="stylesheet">
+    <link href="/assets/css/owl.carousel.css" rel="stylesheet">
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/assets/js/storm.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+
+  <body>
+    <header>
+  <div class="container-fluid">
+     <div class="row">
+          <div class="col-md-5">
+            <a href="/index.html"><img src="/images/logo.png" class="logo" /></a>
+          </div>
+          <div class="col-md-5">
+            
+              <h1>Version: 2.0.1-SNAPSHOT</h1>
+            
+          </div>
+          <div class="col-md-2">
+            <a href="/releases.html" class="btn-std btn-block btn-download">Download</a>
+          </div>
+        </div>
+    </div>
+</header>
+<!--Header End-->
+<!--Navigation Begin-->
+<div class="navbar" role="banner">
+  <div class="container-fluid">
+      <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+              <li><a href="/index.html" id="home">Home</a></li>
+                <li><a href="/getting-help.html" id="getting-help">Getting Help</a></li>
+                <li><a href="/about/integrates.html" id="project-info">Project Information</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="documentation">Documentation <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      
+                    </ul>
+                </li>
+                <li><a href="/talksAndVideos.html">Talks and Slideshows</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="contribute">Community <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/contribute/Contributing-to-Storm.html">Contributing</a></li>
+                        <li><a href="/contribute/People.html">People</a></li>
+                        <li><a href="/contribute/BYLAWS.html">ByLaws</a></li>
+                    </ul>
+                </li>
+                <li><a href="" id="news">News</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+    <div class="container-fluid">
+    <h1 class="page-title">Classpath Handling</h1>
+          <div class="row">
+           	<div class="col-md-12">
+	             <!-- Documentation -->
+
+<p class="post-meta"></p>
+
+<h3 id="storm-is-an-application-container">Storm is an Application Container</h3>
+
+<p>Storm provides an application container environment, a la Apache Tomcat, which creates potential for classpath conflicts between Storm and your application.  The most common way of using Storm involves submitting an “uber JAR” containing your application code with all of its dependencies bundled in, and then Storm distributes this JAR to Worker nodes.  Then Storm runs your application within a Storm process called a <code class="highlighter-rouge">Worker</code> – thus the JVM’s classpath contains the dependencies of your JAR as well as whatever dependencies the Worker itself has.  So careful handling of classpaths and dependencies is critical for the correct functioning of Storm.</p>
+
+<h3 id="adding-extra-dependencies-to-classpath">Adding Extra Dependencies to Classpath</h3>
+
+<p>You no longer <em>need</em> to bundle your dependencies into your topology and create an uber JAR, there are now facilities for separately handling your topology’s dependencies.  Furthermore, there are facilities for adding external dependencies into the Storm daemons.</p>
+
+<p>The <code class="highlighter-rouge">storm.py</code> launcher script allows you to include dependencies into the launched program’s classpath via a few different mechanisms:</p>
+
+<ol>
+  <li>The <code class="highlighter-rouge">--jar</code> and <code class="highlighter-rouge">--artifacts</code> options for the <code class="highlighter-rouge">storm jar</code> command: allow inclusion of non-bundled dependencies with your topology; i.e., allowing specification of JARs that were not bundled into the topology uber-jar.  This is required when using the <code class="highlighter-rouge">storm sql</code> command, which constructs a topology automatically without needing you to write code and build a topology JAR.</li>
+  <li>The <code class="highlighter-rouge">${STORM_DIR}/extlib/</code> and <code class="highlighter-rouge">${STORM_DIR}/extlib-daemon/</code> directories can have dependencies added to them for inclusion of plugins &amp; 3rd-party libraries into the Storm daemons (e.g., Nimbus, UI, Supervisor, etc. – use <code class="highlighter-rouge">extlib-daemon/</code>) and other commands launched via the <code class="highlighter-rouge">storm.py</code> script, e.g., <code class="highlighter-rouge">storm sql</code> and <code class="highlighter-rouge">storm jar</code> (use <code class="highlighter-rouge">extlib</code>). Notably, this means that the Storm Worker process does not include the <code class="highlighter-rouge">extlib-daemon/</code> directory into its classpath.</li>
+  <li>The <code class="highlighter-rouge">STORM_EXT_CLASSPATH</code> and <code class="highlighter-rouge">STORM_EXT_CLASSPATH_DAEMON</code> environment variables provide a similar functionality as those directories, but allows the user to place their external dependencies in alternative locations.
+    <ul>
+      <li>There is a wrinkle here: because the Supervisor daemon launches the Worker process, if you want <code class="highlighter-rouge">STORM_EXT_CLASSPATH</code> to impact your Workers, you will need to specify the <code class="highlighter-rouge">STORM_EXT_CLASSPATH</code> for the Supervisor daemon.  That will allow the Supervisor to consult this environment variable as it constructs the classpath of the Worker processes.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="which-facility-to-choose">Which Facility to Choose?</h4>
+
+<p>You might have noticed the overlap between the first mechanism and the others. If you consider the <code class="highlighter-rouge">--jar</code> / <code class="highlighter-rouge">--artifacts</code> option versus the <code class="highlighter-rouge">extlib/</code> / <code class="highlighter-rouge">STORM_EXT_CLASSPATH</code> it is not obvious which one you should choose for using dependencies with your Worker processes. i.e., both mechanisms allow including JARs to be used for running your Worker processes. Here is my understanding of the difference: <code class="highlighter-rouge">--jar</code> / <code class="highlighter-rouge">--artifacts</code> will result in the dependencies being used for running the <code class="highlighter-rouge">storm jar/sql</code> command, <em>and</em> the dependencies will be uploaded and available in the classpath of the topology’s <code class="highlighter-rouge">Worker</code> processes. Whereas the use of <code class="highlighter-rouge">extlib/</code> / <code class="highlighter-rouge">STORM_EXT_CLASSPATH</code> requires you to have distributed your JAR dependencies out to all Worker nodes.  Another difference is that <code class="highlighter-rouge">extlib/</code> / <code class="highlighter-rouge">STORM_EXT_CLASSPATH</code> would impact all topologies, whereas <code class="highlighter-rouge">--jar</code> / <code class="highlighter-rouge">--artifacts</code> is a topology-specific option.</p>
+
+<h3 id="abbreviation-of-classpaths-and-process-commands">Abbreviation of Classpaths and Process Commands</h3>
+
+<p>When the <code class="highlighter-rouge">storm.py</code> script launches a <code class="highlighter-rouge">java</code> command, it first constructs the classpath from the optional settings mentioned above, as well as including some default locations such as the <code class="highlighter-rouge">${STORM_DIR}/</code>, <code class="highlighter-rouge">${STORM_DIR}/lib/</code>, <code class="highlighter-rouge">${STORM_DIR}/extlib/</code> and <code class="highlighter-rouge">${STORM_DIR}/extlib-daemon/</code> directories.  In past releases, Storm would enumerate all JARs in those directories and then explicitly add all of those JARs into the <code class="highlighter-rouge">-cp</code> / <code class="highlighter-rouge">--classpath</code> argument to the launched <code class="highlighter-rouge">java</code> commands.  As such, the classpath would get so long that the <code class="highlighter-rouge">java</code> commands could breach the Linux Kernel process table limit of 4096 bytes for recording commands.  That led to truncated commands in <code class="highlighter-rouge">ps</code> output, making it hard to operate Storm clusters because you could not easily differentiate the processes nor easily see from <code class="highlighter-rouge">ps</code> which port a worker is listening to.</p>
+
+<p>After Storm dropped support for Java 5, this classpath expansion was no longer necessary, because Java 6 supports classpath wildcards. Classpath wildcards allow you to specify a directory ending with a <code class="highlighter-rouge">*</code> element, such as <code class="highlighter-rouge">foo/bar/*</code>, and the JVM will automatically expand the classpath to include all <code class="highlighter-rouge">.jar</code> files in the wildcard directory.  As of <a href="https://issues.apache.org/jira/browse/STORM-2191">STORM-2191</a> Storm just uses classpath wildcards instead of explicitly listing all JARs, thereby shortening all of the commands and making operating Storm clusters a bit easier.</p>
+
+
+
+	          </div>
+	       </div>
+	  </div>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="footer-widget">
+                    <h5>Meetups</h5>
+                    <ul class="latest-news">
+                        
+                        <!-- <li><a href="http://www.meetup.com/Apache-Storm-Kafka-Users/">Seatle, WA</a> <span class="small">(27 Jun 2015)</span></li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="footer-widget">
+                    <h5>About Storm</h5>
+                    <p>Storm integrates with any queueing system and any database system. Storm's spout abstraction makes it easy to integrate a new queuing system. Likewise, integrating Storm with database systems is easy.</p>
+               </div>
+            </div>
+            <div class="col-md-3">
+                <div class="footer-widget">
+                    <h5>First Look</h5>
+                    <ul class="footer-list">
+                        <li><a href="/releases/current/Rationale.html">Rationale</a></li>
+                        <li><a href="/releases/current/Tutorial.html">Tutorial</a></li>
+                        <li><a href="/releases/current/Setting-up-development-environment.html">Setting up development environment</a></li>
+                        <li><a href="/releases/current/Creating-a-new-Storm-project.html">Creating a new Storm project</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="footer-widget">
+                    <h5>Documentation</h5>
+                    <ul class="footer-list">
+                        <li><a href="/releases/current/index.html">Index</a></li>
+                        <li><a href="/releases/current/javadocs/index.html">Javadoc</a></li>
+                        <li><a href="/releases/current/FAQ.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">   
+            <div class="col-md-12">
+                <p align="center">Copyright © 2015 <a href="http://www.apache.org">Apache Software Foundation</a>. All Rights Reserved. 
+                    <br>Apache Storm, Apache, the Apache feather logo, and the Apache Storm project logos are trademarks of The Apache Software Foundation. 
+                    <br>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--Footer End-->
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-angle-up"></i></a></span> 
+
+</body>
+
+</html>
+
